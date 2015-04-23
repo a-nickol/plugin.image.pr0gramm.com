@@ -1,2 +1,2 @@
 # plugin.image.pr0gramm.com
-xbmc/kodi pr0gramm.com addon
+Dies ist ein XBMC Addon für das pr0gramm.com Image-Board. 
