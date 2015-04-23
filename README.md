@@ -5,7 +5,7 @@ Dies ist ein XBMC Addon für das pr0gramm.com Image-Board.
 plugin.image.pr0gramm.com-Ordner in .xbmc/addon oder .kodi/addon hinzufügen.
 
 ## Kommende Features
-- GIF Anzeigen
+- GIF anzeigen
 - nicht nur die ersten x-Bilder sondern auch mehr
 - irgendwann auch login-Fähigkeit etc.
 
