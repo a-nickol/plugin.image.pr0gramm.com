@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.pr0gramm.com" name="pr0gramm.com" version="0.1.0" provider-name="Alex">
+	<requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>image</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>pr0gramm.com</summary>
+                <description>pr0gramm.com</description>
+		<disclaimer></disclaimer>
+		<language></language>
+		<platform>all</platform>
+	</extension>
+</addon>
