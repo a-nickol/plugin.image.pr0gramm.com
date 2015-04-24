@@ -1,32 +1,80 @@
 #!/usr/bin/python
 
-import os, sys
-import urllib, urllib2, re
-import xbmc, xbmcgui, xbmcplugin
+import sys
+import os
+import urllib
+import urllib2
+import urlparse
+import re
+import xbmc
+import xbmcgui
+import xbmcplugin
 
-base_url = "http://pr0gramm.com/static/"
-plugin_handle = int(sys.argv[1])
+website_url = "http://pr0gramm.com/static/"
 
-def readHTML(url):
-   WebSock = urllib.urlopen(url)
-   WebHTML = WebSock.read()
-   WebSock.close()
-   return WebHTML
+base_url = sys.argv[0]
+addon_handle = int(sys.argv[1])
+args = urlparse.parse_qs(sys.argv[2][1:])
+
+def build_url(query):
+    return base_url + '?' + urllib.urlencode(query)
+
+def read_html(url):
+   web_sock = urllib.urlopen(url)
+   html = web_sock.read()
+   web_sock.close()
+   return html
 
 def create_dir_item(url):
-   listitem = xbmcgui.ListItem(url)
-   listitem.setProperty('IsPlayable', 'true')
-   xbmcplugin.addDirectoryItem(plugin_handle, url, listitem, isFolder=False)
+   list_item = xbmcgui.ListItem(url)
+   list_item.setProperty('IsPlayable', 'true')
+   xbmcplugin.addDirectoryItem(addon_handle, url, list_item, isFolder=False)
 
 def display_image_num(image_num):
-   image_url = base_url + image_num
-   praefix = "http://img.pr0gramm.com/"
-   image = re.compile('<img src="(' + praefix + '.*?)"', re.IGNORECASE).findall(readHTML(image_url))
+   image_url = website_url + image_num
+   image = re.compile('<img src="(http://img.pr0gramm.com/.*?)"', re.IGNORECASE).findall(read_html(image_url))
    for i in image:
       create_dir_item(i)
 
-images = re.compile('<a href="/static/([0-9]*)">', re.IGNORECASE).findall(readHTML(base_url))
-for image_num in images:
-   display_image_num(image_num)
+def display_image_site(url):
+   images = re.compile('<a href="/static/([0-9]*)">', re.IGNORECASE).findall(read_html(url))
+   for image_num in images:
+      display_image_num(image_num)
 
-xbmcplugin.endOfDirectory(plugin_handle)
+def get_next_image_site(url):
+   next_image_site = re.compile('href="/static/(top/[0-9]+)"', re.IGNORECASE).findall(read_html(url))
+   return website_url + next_image_site[0]
+
+def get_next_n_image_sites(n):
+   url = website_url
+   result = []
+   for i in range(0,n):
+      result.append(url)
+      url = get_next_image_site(url)
+   return result
+
+mode = args.get('mode', None)
+
+if mode is None:
+   li = xbmcgui.ListItem('Site 1-10')
+   url = build_url({'mode': 'image_site', 'n': 10, 'image_site_url': website_url})
+   xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+   i = 1
+   for site in get_next_n_image_sites(5):
+      li = xbmcgui.ListItem('Site ' + str(i))
+      url = build_url({'mode': 'image_site', 'n': 1, 'image_site_url': site})
+      xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+      i = i + 1
+elif mode[0] == 'image_site':
+   url = args['image_site_url'][0]
+   n = args['n'][0]
+   for i in range(0,int(n)):
+      print i
+      display_image_site(url)
+      url = get_next_image_site(url)
+   li = xbmcgui.ListItem('Next')
+   url = build_url({'mode': 'image_site', 'n': n, 'image_site_url': get_next_image_site(url)})
+   xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+
+xbmcplugin.endOfDirectory(addon_handle)
+
