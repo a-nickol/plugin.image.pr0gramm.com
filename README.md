@@ -9,13 +9,13 @@ plugin.image.pr0gramm.com-Ordner in .xbmc/addon oder .kodi/addon einfügen.
 
 ## Unwahrscheinliche Feature
 - GIF in Slideshow abspielen (siehe [trac.kodi#3001][trac1], [trac.kodi#9057][trac2], [trac.kodi#2178][trac3])
-Laut abrenoch/chan-kodi:
-  >
-  >To enable GIF support in Kodi (albeit hacky), add the following to your 'advancedsettings.xml' file
-  >
-    <videoextensions>
-        <add>.gif</add>
-    <videoextensions>
+    Laut abrenoch/chan-kodi:
+    >
+    >To enable GIF support in Kodi (albeit hacky), add the following to your 'advancedsettings.xml' file
+    >
+        <videoextensions>
+            <add>.gif</add>
+        <videoextensions>
 
 ## Donation
 Ein Invite für pr0gramm.com wäre nett, dann könnte ich auch das Plugin auch weiter ausbauen.
