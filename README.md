@@ -21,6 +21,9 @@ plugin.image.pr0gramm.com-Ordner in .xbmc/addon oder .kodi/addon einfügen.
 ## Donation
 Ein Invite für pr0gramm.com wäre nett, dann könnte ich auch das Plugin auch weiter ausbauen.
 
+## Aktueller Stand
+Aktuell geht das Addon nicht, weil sich etwas an der Struktur der Seite geändert hat.
+
 [trac1]: http://trac.kodi.tv/ticket/3001
 [trac2]: http://trac.kodi.tv/ticket/9057
 [trac3]: http://trac.kodi.tv/ticket/2178
